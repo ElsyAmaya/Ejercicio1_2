@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText nombres, apellidos, edad, correo;
@@ -27,19 +28,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void Enviar(View view){
-
-        Intent i = new Intent(this, ActivityPrint.class);
-        i.putExtra("DatoP1",nombres.getText().toString());
-        i.putExtra("DatoP2",apellidos.getText().toString());
-        i.putExtra("DatoP3",edad.getText().toString());
-        i.putExtra("DatoP4",correo.getText().toString());
-        startActivity(i);
-        ClearScreen();
+        if (nombres.getText().toString().equals(Empty)){
+            Toast.makeText(getApplicationContext(), "Debe de escribir un nombre" , Toast.LENGTH_LONG).show();
+        }else if (apellidos.getText().toString().equals(Empty)){
+            Toast.makeText(getApplicationContext(), "Debe de escribir un apellido" ,Toast.LENGTH_LONG).show();
+        }else if (edad.getText().toString().equals(Empty)){
+            Toast.makeText(getApplicationContext(), "Debe de escribir su edad" ,Toast.LENGTH_LONG).show();
+        }else if (correo.getText().toString().equals(Empty)){
+            Toast.makeText(getApplicationContext(), "Debe de escribir su correo" ,Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent i = new Intent(this, ActivityPrint.class);
+            i.putExtra("DatoP1", nombres.getText().toString());
+            i.putExtra("DatoP2", apellidos.getText().toString());
+            i.putExtra("DatoP3", edad.getText().toString());
+            i.putExtra("DatoP4", correo.getText().toString());
+            startActivity(i);
+            ClearScreen();
+        }
     }
     private void ClearScreen(){
-        nombres.setText("");
-        apellidos.setText("");
-        correo.setText("");
-        edad.setText("");
+        nombres.setText(Empty);
+        apellidos.setText(Empty);
+        correo.setText(Empty);
+        edad.setText(Empty);
     }
+
+    public static final String Empty = "";
 }
